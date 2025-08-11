@@ -1,355 +1,342 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Fractal DNA Helix with Quantum Particles - Ultra Unique 3D Element
-function FractalDNAHelix() {
-  const helixRef = useRef<THREE.Group>(null);
-  const strand1Ref = useRef<THREE.Group>(null);
-  const strand2Ref = useRef<THREE.Group>(null);
-  const quantumParticlesRef = useRef<THREE.Points>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+// Animated Tech Constellation
+function TechConstellation() {
+  const mainGroupRef = useRef<THREE.Group>(null);
+  const orbitingNodesRef = useRef<THREE.Group>(null);
+  const particlesRef = useRef<THREE.Points>(null);
+  const ringsRef = useRef<THREE.Group>(null);
 
-  // Track mouse position for interactive rotation
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({
-        x: (event.clientX / window.innerWidth) * 2 - 1,
-        y: -(event.clientY / window.innerHeight) * 2 + 1,
+  // Define tech nodes in perfect circular arrangement
+  const techNodes = useMemo(() => {
+    const nodeCount = 6;
+    const radius = 2.5;
+    const nodes = [];
+    
+    // Center node (You)
+    nodes.push({
+      position: [0, 0, 0] as [number, number, number],
+      color: '#8A2BE2',
+      size: 0.2,
+      label: 'You',
+      orbitRadius: 0,
+      orbitSpeed: 0
+    });
+    
+    // Surrounding tech nodes
+    const techs = [
+      { name: 'React', color: '#61DAFB' },
+      { name: 'Node.js', color: '#22C55E' },
+      { name: 'Python', color: '#F59E0B' },
+      { name: 'MongoDB', color: '#4F46E5' },
+      { name: 'JavaScript', color: '#EF4444' },
+      { name: 'Git', color: '#60A5FA' }
+    ];
+    
+    techs.forEach((tech, i) => {
+      const angle = (i / nodeCount) * Math.PI * 2;
+      const x = Math.cos(angle) * radius;
+      const z = Math.sin(angle) * radius;
+      const y = Math.sin(angle * 2) * 0.5; // Add some vertical variation
+      
+      nodes.push({
+        position: [x, y, z] as [number, number, number],
+        color: tech.color,
+        size: 0.12,
+        label: tech.name,
+        orbitRadius: radius,
+        orbitSpeed: 0.3 + i * 0.1,
+        orbitPhase: angle
       });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    });
+    
+    return nodes;
   }, []);
 
-  // Complex DNA helix animation with quantum effects
+  // Create connection lines
+  const connections = useMemo(() => {
+    const lines = [];
+    
+    // Connect all orbiting nodes to center
+    for (let i = 1; i < techNodes.length; i++) {
+      lines.push({
+        start: techNodes[0].position,
+        end: techNodes[i].position,
+        opacity: 0.4
+      });
+    }
+    
+    // Connect adjacent orbiting nodes
+    for (let i = 1; i < techNodes.length; i++) {
+      const nextIndex = i < techNodes.length - 1 ? i + 1 : 1;
+      lines.push({
+        start: techNodes[i].position,
+        end: techNodes[nextIndex].position,
+        opacity: 0.2
+      });
+    }
+    
+    return lines;
+  }, [techNodes]);
+
+  // Enhanced particle system
+  const starField = useMemo(() => {
+    const particleCount = 300;
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const sizes = new Float32Array(particleCount);
+    const velocities = new Float32Array(particleCount * 3);
+    
+    const colorPalette = [
+      new THREE.Color('#8A2BE2'), // Purple
+      new THREE.Color('#4F46E5'), // Blue  
+      new THREE.Color('#60A5FA'), // Light Blue
+      new THREE.Color('#22C55E'), // Green
+      new THREE.Color('#F59E0B'), // Orange
+      new THREE.Color('#EF4444'), // Red
+    ];
+    
+    for (let i = 0; i < particleCount; i++) {
+      // Create layered particle distribution
+      const layer = Math.floor(i / (particleCount / 3));
+      const baseRadius = 1.5 + layer * 1.2;
+      const radiusVariation = 0.5 + Math.random() * 0.8;
+      const finalRadius = baseRadius + radiusVariation;
+      
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      
+      positions[i * 3] = finalRadius * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = finalRadius * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = finalRadius * Math.cos(phi);
+      
+      // Assign colors based on distance from center
+      const distanceFromCenter = finalRadius / 4;
+      const colorIndex = Math.min(Math.floor(distanceFromCenter * colorPalette.length), colorPalette.length - 1);
+      const color = colorPalette[colorIndex];
+      
+      colors[i * 3] = color.r;
+      colors[i * 3 + 1] = color.g;
+      colors[i * 3 + 2] = color.b;
+      
+      // Size based on layer (closer = bigger)
+      sizes[i] = (0.8 - layer * 0.2) * (0.3 + Math.random() * 0.4);
+      
+      // Slow orbital velocities
+      velocities[i * 3] = (Math.random() - 0.5) * 0.02;
+      velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.02;
+      velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.02;
+    }
+    
+    return { positions, colors, sizes, velocities, count: particleCount };
+  }, []);
+
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
     
-    if (helixRef.current) {
-      helixRef.current.rotation.y = time * 0.3 + mousePosition.x * 0.5;
-      helixRef.current.rotation.x = mousePosition.y * 0.3;
+    // Smooth main rotation
+    if (mainGroupRef.current) {
+      mainGroupRef.current.rotation.y = time * 0.15;
+      mainGroupRef.current.rotation.x = Math.sin(time * 0.3) * 0.1;
     }
     
-    if (strand1Ref.current) {
-      strand1Ref.current.rotation.y = time * 0.8;
+    // Individual node animations (pulsing)
+    if (orbitingNodesRef.current) {
+      orbitingNodesRef.current.children.forEach((node, i) => {
+        if (node instanceof THREE.Mesh && i > 0) {
+          // Gentle pulsing animation
+          const pulseScale = 1 + Math.sin(time * 2 + i) * 0.1;
+          node.scale.setScalar(pulseScale);
+          
+          // Floating motion
+          const originalY = techNodes[i]?.position[1] || 0;
+          node.position.y = originalY + Math.sin(time * 1.5 + i * 0.5) * 0.2;
+        }
+      });
     }
     
-    if (strand2Ref.current) {
-      strand2Ref.current.rotation.y = -time * 0.8;
+    // Animate particles
+    if (particlesRef.current && particlesRef.current.geometry) {
+      const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
+      
+      for (let i = 0; i < starField.count; i++) {
+        // Subtle drift motion
+        positions[i * 3] += Math.sin(time * 0.5 + i * 0.1) * 0.001;
+        positions[i * 3 + 1] += Math.cos(time * 0.7 + i * 0.15) * 0.001;
+        positions[i * 3 + 2] += Math.sin(time * 0.3 + i * 0.2) * 0.001;
+      }
+      
+      particlesRef.current.geometry.attributes.position.needsUpdate = true;
     }
     
-    if (quantumParticlesRef.current) {
-      quantumParticlesRef.current.rotation.y = time * 0.1;
-      quantumParticlesRef.current.rotation.z = Math.sin(time * 0.5) * 0.2;
+    // Animate rings
+    if (ringsRef.current) {
+      ringsRef.current.children.forEach((ring, i) => {
+        ring.rotation.z = time * (0.2 + i * 0.1);
+        ring.rotation.x = time * 0.1 + i;
+      });
     }
   });
 
-  // Generate DNA base pairs with fractal patterns
-  const createDNAStrand = (radius: number, offset: number, color: string) => {
-    const nodes = [];
-    const segments = 40;
-    const height = 6;
-    
-    for (let i = 0; i < segments; i++) {
-      const angle = (i / segments) * Math.PI * 4 + offset;
-      const y = (i / segments) * height - height / 2;
-      const x = Math.cos(angle) * radius;
-      const z = Math.sin(angle) * radius;
-      
-      // Create fractal-like branching nodes
-      nodes.push(
-        <group key={i} position={[x, y, z]}>
-          {/* Main node */}
-          <mesh>
-            <dodecahedronGeometry args={[0.15, 0]} />
+  return (
+    <group ref={mainGroupRef}>
+      {/* Tech Nodes */}
+      <group ref={orbitingNodesRef}>
+        {techNodes.map((node, i) => (
+          <mesh key={i} position={node.position}>
+            <sphereGeometry args={[node.size, 32, 32]} />
             <meshStandardMaterial
-              color={color}
-              emissive={color}
-              emissiveIntensity={0.3}
+              color={node.color}
+              emissive={node.color}
+              emissiveIntensity={i === 0 ? 0.4 : 0.3}
               metalness={0.8}
-              roughness={0.2}
+              roughness={0.1}
+              transparent
+              opacity={0.9}
             />
-          </mesh>
-          
-          {/* Fractal branches */}
-          {Array.from({ length: 4 }, (_, j) => {
-            const branchAngle = (j / 4) * Math.PI * 2;
-            const branchX = Math.cos(branchAngle) * 0.3;
-            const branchZ = Math.sin(branchAngle) * 0.3;
-            
-            return (
-              <mesh key={j} position={[branchX, 0, branchZ]}>
-                <tetrahedronGeometry args={[0.05, 0]} />
-                <meshBasicMaterial
-                  color={color}
-                  transparent
-                  opacity={0.8}
-                />
-              </mesh>
-            );
-          })}
-          
-          {/* Connection lines to next node */}
-          {i < segments - 1 && (
-            <mesh rotation={[0, angle + 0.1, 0]}>
-              <cylinderGeometry args={[0.02, 0.02, 0.8, 8]} />
+            {/* Glow effect */}
+            <mesh scale={[1.5, 1.5, 1.5]}>
+              <sphereGeometry args={[node.size, 16, 16]} />
               <meshBasicMaterial
-                color={color}
+                color={node.color}
                 transparent
-                opacity={0.6}
+                opacity={0.1}
               />
             </mesh>
-          )}
-        </group>
-      );
-    }
-    
-    return nodes;
-  };
-
-  // Generate quantum particle field
-  const quantumParticleCount = 800;
-  const quantumPositions = new Float32Array(quantumParticleCount * 3);
-  const quantumColors = new Float32Array(quantumParticleCount * 3);
-  
-  for (let i = 0; i < quantumParticleCount; i++) {
-    // Create particle cloud in torus shape around helix
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.random() * Math.PI * 2;
-    const radius = 4 + Math.random() * 2;
-    const tubeRadius = 0.5 + Math.random() * 1.5;
-    
-    quantumPositions[i * 3] = (radius + tubeRadius * Math.cos(phi)) * Math.cos(theta);
-    quantumPositions[i * 3 + 1] = tubeRadius * Math.sin(phi) + (Math.random() - 0.5) * 4;
-    quantumPositions[i * 3 + 2] = (radius + tubeRadius * Math.cos(phi)) * Math.sin(theta);
-    
-    // Theme-matched colors: purples and blues only
-    const colorVariant = Math.random();
-    let color;
-    if (colorVariant < 0.4) {
-      color = new THREE.Color(0x8A2BE2); // Accent purple
-    } else if (colorVariant < 0.8) {
-      color = new THREE.Color(0x4F46E5); // Accent blue
-    } else {
-      color = new THREE.Color(0x6366F1); // Light indigo variant
-    }
-    quantumColors[i * 3] = color.r;
-    quantumColors[i * 3 + 1] = color.g;
-    quantumColors[i * 3 + 2] = color.b;
-  }
-
-  return (
-    <group ref={helixRef} position={[0, 0, 0]} scale={1.0}>
-      {/* DNA Strand 1 - Cyan/Blue */}
-      <group ref={strand1Ref}>
-        {createDNAStrand(1.5, 0, "#4F46E5")}
-      </group>
-      
-      {/* DNA Strand 2 - Pink/Magenta */}
-      <group ref={strand2Ref}>
-        {createDNAStrand(1.5, Math.PI, "#8A2BE2")}
-      </group>
-      
-      {/* Base pair connections */}
-      {Array.from({ length: 20 }, (_, i) => {
-        const angle = (i / 20) * Math.PI * 4;
-        const y = (i / 20) * 6 - 3;
-        const x1 = Math.cos(angle) * 1.5;
-        const z1 = Math.sin(angle) * 1.5;
-        const x2 = Math.cos(angle + Math.PI) * 1.5;
-        const z2 = Math.sin(angle + Math.PI) * 1.5;
-        
-        return (
-          <mesh key={i} position={[(x1 + x2) / 2, y, (z1 + z2) / 2]} rotation={[0, angle, 0]}>
-            <cylinderGeometry args={[0.03, 0.03, 3, 6]} />
-            <meshStandardMaterial
-              color="#9CA3AF"
-              emissive="#6366F1"
-              emissiveIntensity={0.3}
-              transparent
-              opacity={0.8}
-            />
           </mesh>
-        );
-      })}
+        ))}
+      </group>
       
-      {/* Central energy core */}
-      <mesh>
-        <torusKnotGeometry args={[0.8, 0.3, 100, 16, 2, 3]} />
-        <meshStandardMaterial
-          color="#F3F4F6"
-          emissive="#8A2BE2"
-          emissiveIntensity={0.4}
-          metalness={0.8}
-          roughness={0.1}
-        />
-      </mesh>
+      {/* Connection Lines */}
+      <group>
+        {connections.map((connection, i) => {
+          const start = new THREE.Vector3(...connection.start);
+          const end = new THREE.Vector3(...connection.end);
+          const points = [start, end];
+          
+          return (
+            <line key={i}>
+              <bufferGeometry>
+                <bufferAttribute
+                  attach="attributes-position"
+                  args={[new Float32Array(points.flatMap(p => [p.x, p.y, p.z])), 3]}
+                  count={2}
+                />
+              </bufferGeometry>
+              <lineBasicMaterial
+                color="#8A2BE2"
+                transparent
+                opacity={connection.opacity}
+                linewidth={1}
+              />
+            </line>
+          );
+        })}
+      </group>
       
-      {/* Quantum particle field */}
-      <points ref={quantumParticlesRef}>
+      {/* Star Field */}
+      <points ref={particlesRef}>
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            args={[quantumPositions, 3]}
-            count={quantumParticleCount}
+            args={[starField.positions, 3]}
+            count={starField.count}
           />
           <bufferAttribute
             attach="attributes-color"
-            args={[quantumColors, 3]}
-            count={quantumParticleCount}
+            args={[starField.colors, 3]}
+            count={starField.count}
+          />
+          <bufferAttribute
+            attach="attributes-size"
+            args={[starField.sizes, 1]}
+            count={starField.count}
           />
         </bufferGeometry>
         <pointsMaterial
-          size={0.06}
           transparent
-          opacity={0.7}
+          opacity={0.6}
           vertexColors
           sizeAttenuation
+          blending={THREE.AdditiveBlending}
         />
       </points>
+      
+      {/* Energy Rings */}
+      <group ref={ringsRef}>
+        {[2.8, 3.5, 4.2].map((radius, i) => (
+          <mesh key={i}>
+            <torusGeometry args={[radius, 0.005, 16, 100]} />
+            <meshBasicMaterial
+              color={['#8A2BE2', '#4F46E5', '#60A5FA'][i]}
+              transparent
+              opacity={0.3 - i * 0.08}
+            />
+          </mesh>
+        ))}
+      </group>
     </group>
   );
 }
 
-// Quantum energy rings around DNA Helix
-function OrbitalRings() {
-  const ring1Ref = useRef<THREE.Mesh>(null);
-  const ring2Ref = useRef<THREE.Mesh>(null);
-  const ring3Ref = useRef<THREE.Mesh>(null);
-
-  useFrame((state) => {
-    const time = state.clock.getElapsedTime();
-    
-    if (ring1Ref.current) {
-      ring1Ref.current.rotation.x = time * 0.5;
-      ring1Ref.current.rotation.z = Math.sin(time * 0.3) * 0.2;
-    }
-    if (ring2Ref.current) {
-      ring2Ref.current.rotation.y = time * 0.3;
-      ring2Ref.current.rotation.x = Math.cos(time * 0.2) * 0.1;
-    }
-    if (ring3Ref.current) {
-      ring3Ref.current.rotation.z = time * 0.4;
-      ring3Ref.current.rotation.y = Math.sin(time * 0.4) * 0.15;
-    }
-  });
-
-  return (
-    <>
-      {/* Ring 1 */}
-      <mesh ref={ring1Ref}>
-        <torusGeometry args={[4, 0.02, 16, 100]} />
-        <meshBasicMaterial
-          color="#8A2BE2"
-          transparent
-          opacity={0.6}
-        />
-      </mesh>
-      
-      {/* Ring 2 */}
-      <mesh ref={ring2Ref}>
-        <torusGeometry args={[4.8, 0.015, 16, 100]} />
-        <meshBasicMaterial
-          color="#4F46E5"
-          transparent
-          opacity={0.4}
-        />
-      </mesh>
-      
-      {/* Ring 3 */}
-      <mesh ref={ring3Ref}>
-        <torusGeometry args={[5.5, 0.01, 16, 100]} />
-        <meshBasicMaterial
-          color="#60A5FA"
-          transparent
-          opacity={0.3}
-        />
-      </mesh>
-    </>
-  );
-}
-
-// Floating particles around the fractal helix
-function FloatingParticles() {
-  const particlesRef = useRef<THREE.Points>(null);
-
-  useFrame((state) => {
-    if (particlesRef.current) {
-      particlesRef.current.rotation.y += 0.001;
-      particlesRef.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 0.2) * 0.1;
-    }
-  });
-
-  const particleCount = 1000;
-  const positions = new Float32Array(particleCount * 3);
-
-  for (let i = 0; i < particleCount; i++) {
-    const radius = 8 + Math.random() * 4;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.random() * Math.PI;
-
-    positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-    positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-    positions[i * 3 + 2] = radius * Math.cos(phi);
-  }
-
-  return (
-    <points ref={particlesRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-          count={particleCount}
-        />
-      </bufferGeometry>
-      <pointsMaterial
-        color="#8A2BE2"
-        size={0.05}
-        transparent
-        opacity={0.6}
-        sizeAttenuation
-      />
-    </points>
-  );
-}
-
-// Main Fractal DNA Helix component (keeping Globe name for compatibility)
+// Enhanced Tech Constellation Component
 export default function Globe() {
   return (
-    <div className="w-full h-[400px] sm:h-[500px] lg:h-[600px] relative">
+    <div className="w-full h-[280px] sm:h-[320px] lg:h-[380px] relative overflow-hidden rounded-xl">
       <Canvas
-        camera={{ position: [2, 0, 10], fov: 45 }}
+        camera={{ 
+          position: [0, 2, 6], 
+          fov: 50,
+          near: 0.1,
+          far: 1000
+        }}
         style={{ background: 'transparent' }}
-        aria-label="Interactive 3D Fractal DNA Helix"
+        aria-label="Interactive Tech Constellation"
         role="img"
+        dpr={[1, 2]} // Responsive pixel ratio
       >
-        {/* Lighting */}
-        <ambientLight intensity={0.4} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#8A2BE2" />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#4F46E5" />
+        {/* Enhanced Lighting */}
+        <ambientLight intensity={0.2} />
+        <pointLight 
+          position={[4, 4, 4]} 
+          intensity={1.2} 
+          color="#8A2BE2" 
+          distance={20}
+          decay={2}
+        />
+        <pointLight 
+          position={[-4, -2, -4]} 
+          intensity={0.8} 
+          color="#4F46E5"
+          distance={15}
+          decay={2}
+        />
         <directionalLight
-          position={[5, 5, 5]}
-          intensity={0.8}
-          color="#ffffff"
+          position={[2, 8, 5]}
+          intensity={0.5}
+          color="#60A5FA"
           castShadow
         />
 
-        {/* 3D Elements */}
-        <FractalDNAHelix />
-        <OrbitalRings />
-        <FloatingParticles />
+        {/* Tech Constellation */}
+        <TechConstellation />
 
-        {/* Controls */}
+        {/* Smooth Interactive Controls */}
         <OrbitControls
           enableZoom={false}
           enablePan={false}
-          autoRotate={false}
-          rotateSpeed={0.5}
+          autoRotate
+          autoRotateSpeed={0.5}
+          rotateSpeed={0.3}
+          dampingFactor={0.05}
+          enableDamping
+          maxPolarAngle={Math.PI * 0.7}
+          minPolarAngle={Math.PI * 0.3}
         />
       </Canvas>
     </div>

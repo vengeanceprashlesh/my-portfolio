@@ -73,25 +73,9 @@ export default function Background() {
         }}
       />
 
-      {/* Glow Effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-purple/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-blue/5 rounded-full blur-3xl" />
-      
-      {/* Floating Particles */}
-      <div className="absolute inset-0">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-accent-purple/30 rounded-full animate-bounce"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDuration: `${Math.random() * 5 + 3}s`,
-              animationDelay: `${Math.random() * 2}s`,
-            }}
-          />
-        ))}
-      </div>
+      {/* Subtle Glow Effects */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-purple/3 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-blue/3 rounded-full blur-3xl" />
     </div>
   );
 }

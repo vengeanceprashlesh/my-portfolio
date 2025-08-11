@@ -11,6 +11,7 @@ interface TimelineItem {
   description: string;
   achievements: string[];
   color: string;
+  icon: string;
 }
 
 interface TimelineProps {
@@ -127,21 +128,22 @@ function TimelineNode({ item, index }: { item: TimelineItem; index: number }) {
             }}
             transition={{ duration: 0.3 }}
           >
-            {/* Inner Dot */}
+            {/* Icon */}
             <motion.div
-              className="w-8 h-8 rounded-full"
-              style={{ backgroundColor: item.color }}
-              whileHover={{ scale: 1.2 }}
+              className="text-2xl flex items-center justify-center"
+              whileHover={{ scale: 1.3, rotate: 360 }}
               animate={isInView ? { 
-                scale: [1, 1.3, 1],
-                opacity: [0.8, 1, 0.8]
+                scale: [1, 1.2, 1],
+                rotate: [0, 10, 0]
               } : {}}
               transition={{ 
                 duration: 2, 
                 repeat: Infinity,
                 delay: 0.6
               }}
-            />
+            >
+              {item.icon}
+            </motion.div>
           </motion.div>
 
           {/* Pulse Effect */}
