@@ -62,7 +62,7 @@ export default function ProjectCard({
               src={imageUrl}
               alt={title}
               fill
-              className="object-cover"
+              className={title === "Evolve" || title === "Airport Guide" || title === "Emotions Detector" || title === "Wealthara" ? "object-contain" : "object-cover"}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </motion.div>

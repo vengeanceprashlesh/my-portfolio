@@ -30,8 +30,8 @@ export default function Contact() {
     {
       icon: "📱",
       label: "Phone",
-      value: "+91 8791069618",
-      href: "tel:+918791069618",
+      value: "+91 9918190536",
+      href: "tel:+919918190536",
       color: "#22C55E"
     },
     {
@@ -50,14 +50,9 @@ export default function Contact() {
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
               <span className="bg-gradient-to-r from-accent-blue via-accent-purple to-accent-blue bg-clip-text text-transparent">
-                Connect Across
+                Connect
               </span>
-              <br />
-              <span className="text-primary-text">The Universe</span>
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-secondary-text max-w-3xl mx-auto px-2">
-              Ready to collaborate on the next cosmic project? Let&apos;s create something extraordinary together.
-            </p>
           </div>
         </AnimateOnScroll>
 

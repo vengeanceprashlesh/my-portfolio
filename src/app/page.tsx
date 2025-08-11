@@ -47,36 +47,36 @@ export default function Home() {
 
   const projects = [
     {
-      title: "Neo-University",
-      description: "A comprehensive university management system built for students and faculty. Features course management, grade tracking, student enrollment, and administrative tools with a modern interface.",
-      technologies: ["MERN Stack", "MongoDB", "Express.js", "React", "Node.js"],
-      imageUrl: "https://images.unsplash.com/photo-1562774053-701939374585?w=500&h=300&fit=crop&crop=center",
-      demoUrl: "#",
-      codeUrl: "https://github.com/vengeanceprashlesh/Neo-University"
+      title: "Evolve",
+      description: "Transform your learning experience with AI-powered personalized education. Master university subjects through project-based learning, visual diagrams, and interactive problem-solving with advanced learning analytics.",
+      technologies: ["MERN Stack", "AI Integration", "React", "Node.js", "Educational Technology"],
+      imageUrl: "/images/evolve.png",
+      demoUrl: "https://evolve-xi.vercel.app/",
+      codeUrl: "https://github.com/vengeanceprashlesh/evolve"
     },
     {
-      title: "PsyFlow",
-      description: "An innovative psychology and mental health application designed to help users track their emotional well-being. Features mood tracking, mental health resources, and personalized insights.",
-      technologies: ["Psychology APIs", "Data Analytics", "User Experience", "Mental Health"],
-      imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=500&h=300&fit=crop&crop=center",
-      demoUrl: "#",
-      codeUrl: "https://github.com/vengeanceprashlesh/PsyFlow"
+      title: "Airport Guide",
+      description: "A comprehensive airport navigation and information system. Features interactive terminal maps, flight information, gate details, and practical guides to help travelers navigate airports efficiently and find essential services.",
+      technologies: ["Web Development", "Interactive Maps", "Travel Tech", "User Experience"],
+      imageUrl: "/images/airport.png",
+      demoUrl: "https://firstprashlesh.vercel.app",
+      codeUrl: "https://github.com/vengeanceprashlesh/Terminal-Guide"
     },
     {
-      title: "Parkify",
-      description: "A smart parking management system that streamlines parking operations. Features real-time space availability, booking system, payment integration, and space optimization algorithms.",
-      technologies: ["Full Stack", "Database Design", "Payment APIs", "Real-time Systems"],
-      imageUrl: "https://images.unsplash.com/photo-1590674899484-cc90b1ad8a1e?w=500&h=300&fit=crop&crop=center",
+      title: "Emotions Detector",
+      description: "An advanced emotion detection system that analyzes facial expressions and emotions in real-time. Features machine learning algorithms, computer vision, and mobile-responsive design to identify and classify various emotional states with high accuracy.",
+      technologies: ["Machine Learning", "Computer Vision", "Mobile Development", "AI/ML"],
+      imageUrl: "/images/emotiondetector.png",
       demoUrl: "#",
-      codeUrl: "https://github.com/vengeanceprashlesh/Parkify"
+      codeUrl: "https://github.com/vengeanceprashlesh/prashlesh-mobile-glow"
     },
     {
-      title: "ClarityFlow",
-      description: "Mental Health Companion - An interactive emotional introspection and mood regulation app designed for Gen-Z and young adults. Helps with anxiety, stress, and emotional overwhelm through self-discovery.",
-      technologies: ["Mental Health Tech", "Emotional AI", "User Psychology", "Wellness Apps"],
-      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=300&fit=crop&crop=center",
+      title: "Wealthara",
+      description: "A comprehensive wealth management and financial planning platform. Features investment tracking, portfolio analysis, financial goal setting, and personalized investment recommendations with advanced analytics and market insights.",
+      technologies: ["FinTech", "Financial Analytics", "Investment Tracking", "Wealth Management"],
+      imageUrl: "/images/wealthera.png",
       demoUrl: "#",
-      codeUrl: "https://github.com/vengeanceprashlesh/ClarityFlow"
+      codeUrl: "https://github.com/vengeanceprashlesh/wealthara"
     }
   ];
 
@@ -178,7 +178,7 @@ export default function Home() {
               </p>
             </AnimateOnScroll>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 lg:gap-3">
               {projects.map((project, index) => (
                 <AnimateOnScroll key={project.title} delay={0.2 * (index + 1)}>
                   <ProjectCard {...project} />

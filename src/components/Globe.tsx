@@ -5,9 +5,12 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Earth component with rotation
-function Earth() {
-  const earthRef = useRef<THREE.Mesh>(null);
+// Fractal DNA Helix with Quantum Particles - Ultra Unique 3D Element
+function FractalDNAHelix() {
+  const helixRef = useRef<THREE.Group>(null);
+  const strand1Ref = useRef<THREE.Group>(null);
+  const strand2Ref = useRef<THREE.Group>(null);
+  const quantumParticlesRef = useRef<THREE.Points>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Track mouse position for interactive rotation
@@ -23,40 +26,197 @@ function Earth() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Auto-rotation with mouse influence
-  useFrame(() => {
-    if (earthRef.current) {
-      earthRef.current.rotation.y += 0.005;
-      earthRef.current.rotation.x = mousePosition.y * 0.1;
-      earthRef.current.rotation.z = mousePosition.x * 0.1;
+  // Complex DNA helix animation with quantum effects
+  useFrame((state) => {
+    const time = state.clock.getElapsedTime();
+    
+    if (helixRef.current) {
+      helixRef.current.rotation.y = time * 0.3 + mousePosition.x * 0.5;
+      helixRef.current.rotation.x = mousePosition.y * 0.3;
+    }
+    
+    if (strand1Ref.current) {
+      strand1Ref.current.rotation.y = time * 0.8;
+    }
+    
+    if (strand2Ref.current) {
+      strand2Ref.current.rotation.y = -time * 0.8;
+    }
+    
+    if (quantumParticlesRef.current) {
+      quantumParticlesRef.current.rotation.y = time * 0.1;
+      quantumParticlesRef.current.rotation.z = Math.sin(time * 0.5) * 0.2;
     }
   });
 
+  // Generate DNA base pairs with fractal patterns
+  const createDNAStrand = (radius: number, offset: number, color: string) => {
+    const nodes = [];
+    const segments = 40;
+    const height = 6;
+    
+    for (let i = 0; i < segments; i++) {
+      const angle = (i / segments) * Math.PI * 4 + offset;
+      const y = (i / segments) * height - height / 2;
+      const x = Math.cos(angle) * radius;
+      const z = Math.sin(angle) * radius;
+      
+      // Create fractal-like branching nodes
+      nodes.push(
+        <group key={i} position={[x, y, z]}>
+          {/* Main node */}
+          <mesh>
+            <dodecahedronGeometry args={[0.15, 0]} />
+            <meshStandardMaterial
+              color={color}
+              emissive={color}
+              emissiveIntensity={0.3}
+              metalness={0.8}
+              roughness={0.2}
+            />
+          </mesh>
+          
+          {/* Fractal branches */}
+          {Array.from({ length: 4 }, (_, j) => {
+            const branchAngle = (j / 4) * Math.PI * 2;
+            const branchX = Math.cos(branchAngle) * 0.3;
+            const branchZ = Math.sin(branchAngle) * 0.3;
+            
+            return (
+              <mesh key={j} position={[branchX, 0, branchZ]}>
+                <tetrahedronGeometry args={[0.05, 0]} />
+                <meshBasicMaterial
+                  color={color}
+                  transparent
+                  opacity={0.8}
+                />
+              </mesh>
+            );
+          })}
+          
+          {/* Connection lines to next node */}
+          {i < segments - 1 && (
+            <mesh rotation={[0, angle + 0.1, 0]}>
+              <cylinderGeometry args={[0.02, 0.02, 0.8, 8]} />
+              <meshBasicMaterial
+                color={color}
+                transparent
+                opacity={0.6}
+              />
+            </mesh>
+          )}
+        </group>
+      );
+    }
+    
+    return nodes;
+  };
+
+  // Generate quantum particle field
+  const quantumParticleCount = 800;
+  const quantumPositions = new Float32Array(quantumParticleCount * 3);
+  const quantumColors = new Float32Array(quantumParticleCount * 3);
+  
+  for (let i = 0; i < quantumParticleCount; i++) {
+    // Create particle cloud in torus shape around helix
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.random() * Math.PI * 2;
+    const radius = 4 + Math.random() * 2;
+    const tubeRadius = 0.5 + Math.random() * 1.5;
+    
+    quantumPositions[i * 3] = (radius + tubeRadius * Math.cos(phi)) * Math.cos(theta);
+    quantumPositions[i * 3 + 1] = tubeRadius * Math.sin(phi) + (Math.random() - 0.5) * 4;
+    quantumPositions[i * 3 + 2] = (radius + tubeRadius * Math.cos(phi)) * Math.sin(theta);
+    
+    // Theme-matched colors: purples and blues only
+    const colorVariant = Math.random();
+    let color;
+    if (colorVariant < 0.4) {
+      color = new THREE.Color(0x8A2BE2); // Accent purple
+    } else if (colorVariant < 0.8) {
+      color = new THREE.Color(0x4F46E5); // Accent blue
+    } else {
+      color = new THREE.Color(0x6366F1); // Light indigo variant
+    }
+    quantumColors[i * 3] = color.r;
+    quantumColors[i * 3 + 1] = color.g;
+    quantumColors[i * 3 + 2] = color.b;
+  }
+
   return (
-    <mesh ref={earthRef}>
-      <sphereGeometry args={[2.5, 64, 64]} />
-      <meshPhongMaterial
-        color="#4a90e2"
-        shininess={100}
-        specular="#ffffff"
-        transparent
-        opacity={0.8}
-      />
-      {/* Inner glow effect */}
+    <group ref={helixRef} position={[0, 0, 0]} scale={1.0}>
+      {/* DNA Strand 1 - Cyan/Blue */}
+      <group ref={strand1Ref}>
+        {createDNAStrand(1.5, 0, "#4F46E5")}
+      </group>
+      
+      {/* DNA Strand 2 - Pink/Magenta */}
+      <group ref={strand2Ref}>
+        {createDNAStrand(1.5, Math.PI, "#8A2BE2")}
+      </group>
+      
+      {/* Base pair connections */}
+      {Array.from({ length: 20 }, (_, i) => {
+        const angle = (i / 20) * Math.PI * 4;
+        const y = (i / 20) * 6 - 3;
+        const x1 = Math.cos(angle) * 1.5;
+        const z1 = Math.sin(angle) * 1.5;
+        const x2 = Math.cos(angle + Math.PI) * 1.5;
+        const z2 = Math.sin(angle + Math.PI) * 1.5;
+        
+        return (
+          <mesh key={i} position={[(x1 + x2) / 2, y, (z1 + z2) / 2]} rotation={[0, angle, 0]}>
+            <cylinderGeometry args={[0.03, 0.03, 3, 6]} />
+            <meshStandardMaterial
+              color="#9CA3AF"
+              emissive="#6366F1"
+              emissiveIntensity={0.3}
+              transparent
+              opacity={0.8}
+            />
+          </mesh>
+        );
+      })}
+      
+      {/* Central energy core */}
       <mesh>
-        <sphereGeometry args={[2.45, 32, 32]} />
-        <meshBasicMaterial
-          color="#8A2BE2"
-          transparent
-          opacity={0.3}
-          side={THREE.BackSide}
+        <torusKnotGeometry args={[0.8, 0.3, 100, 16, 2, 3]} />
+        <meshStandardMaterial
+          color="#F3F4F6"
+          emissive="#8A2BE2"
+          emissiveIntensity={0.4}
+          metalness={0.8}
+          roughness={0.1}
         />
       </mesh>
-    </mesh>
+      
+      {/* Quantum particle field */}
+      <points ref={quantumParticlesRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[quantumPositions, 3]}
+            count={quantumParticleCount}
+          />
+          <bufferAttribute
+            attach="attributes-color"
+            args={[quantumColors, 3]}
+            count={quantumParticleCount}
+          />
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.06}
+          transparent
+          opacity={0.7}
+          vertexColors
+          sizeAttenuation
+        />
+      </points>
+    </group>
   );
 }
 
-// Orbital rings around Earth
+// Quantum energy rings around DNA Helix
 function OrbitalRings() {
   const ring1Ref = useRef<THREE.Mesh>(null);
   const ring2Ref = useRef<THREE.Mesh>(null);
@@ -114,7 +274,7 @@ function OrbitalRings() {
   );
 }
 
-// Floating particles around the globe
+// Floating particles around the fractal helix
 function FloatingParticles() {
   const particlesRef = useRef<THREE.Points>(null);
 
@@ -158,14 +318,14 @@ function FloatingParticles() {
   );
 }
 
-// Main Globe component
+// Main Fractal DNA Helix component (keeping Globe name for compatibility)
 export default function Globe() {
   return (
     <div className="w-full h-[400px] sm:h-[500px] lg:h-[600px] relative">
       <Canvas
-        camera={{ position: [0, 0, 10], fov: 45 }}
+        camera={{ position: [2, 0, 10], fov: 45 }}
         style={{ background: 'transparent' }}
-        aria-label="Interactive 3D Globe"
+        aria-label="Interactive 3D Fractal DNA Helix"
         role="img"
       >
         {/* Lighting */}
@@ -180,7 +340,7 @@ export default function Globe() {
         />
 
         {/* 3D Elements */}
-        <Earth />
+        <FractalDNAHelix />
         <OrbitalRings />
         <FloatingParticles />
 
@@ -192,21 +352,6 @@ export default function Globe() {
           rotateSpeed={0.5}
         />
       </Canvas>
-
-      {/* UI Overlay */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-        <div className="text-center z-10 px-4">
-          <h3 className="text-xl sm:text-2xl font-bold text-primary-text mb-2">
-            Interactive Globe
-          </h3>
-          <p className="text-secondary-text text-sm hidden sm:block">
-            Move your mouse to influence rotation
-          </p>
-          <p className="text-secondary-text text-xs sm:hidden">
-            Touch to interact
-          </p>
-        </div>
-      </div>
     </div>
   );
 }
