@@ -192,7 +192,7 @@ export default function Home() {
                     </p>
                     <p className="text-base text-secondary-text leading-relaxed">
                       What drives me most is the moment when an idea transforms from concept to reality—when users interact with 
-                      something I've built and it genuinely makes their lives better. That's the intersection of creativity and 
+                      something I&apos;ve built and it genuinely makes their lives better. That&apos;s the intersection of creativity and 
                       logic where I thrive.
                     </p>
                   </div>

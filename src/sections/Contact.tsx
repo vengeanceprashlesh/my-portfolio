@@ -54,16 +54,16 @@ export default function Contact() {
           <div className="w-full max-w-xl">
             <div className="bg-card-bg border border-border rounded-2xl p-8 backdrop-blur-sm mx-auto">
               <h3 className="text-2xl font-bold mb-6 text-primary-text text-center">
-                Let's Start a Conversation
+                Let&apos;s Start a Conversation
               </h3>
               <p className="text-secondary-text mb-8 leading-relaxed text-center">
                 Whether you have a project in mind, want to collaborate, or just want to say hello, 
-                I'm always excited to connect with fellow cosmic explorers.
+                I&apos;m always excited to connect with fellow cosmic explorers.
               </p>
 
               {/* Contact Methods */}
               <div className="space-y-3">
-                {contactMethods.map((method, index) => (
+                {contactMethods.map((method) => (
                   <a
                     key={method.label}
                     href={method.href}
@@ -97,7 +97,7 @@ export default function Contact() {
                 { number: "50+", label: "Projects" },
                 { number: "3+", label: "Years Exp" },
                 { number: "∞", label: "Possibilities" }
-              ].map((stat, index) => (
+              ].map((stat) => (
                 <div
                   key={stat.label}
                   className="bg-card-bg border border-border rounded-xl p-4 text-center backdrop-blur-sm hover:border-accent-purple/50 transition-colors"
