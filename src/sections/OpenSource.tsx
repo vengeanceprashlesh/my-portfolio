@@ -77,10 +77,9 @@ export default function OpenSource({ contributions }: OpenSourceProps) {
                   borderColor: stat.color,
                   boxShadow: `0 10px 30px ${stat.color}30`
                 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                delay={index * 0.1}
               >
                 {/* Background Glow */}
                 <motion.div
@@ -153,8 +152,8 @@ export default function OpenSource({ contributions }: OpenSourceProps) {
                   Want to Collaborate?
                 </h3>
                 <p className="text-secondary-text mb-6 max-w-2xl mx-auto">
-                  I'm always looking for exciting open source projects to contribute to. 
-                  Let's build something amazing together and make an impact on the developer community!
+                  I&apos;m always looking for exciting open source projects to contribute to. 
+                  Let&apos;s build something amazing together and make an impact on the developer community!
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

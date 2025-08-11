@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface ContributionCardProps {
   projectName: string;
@@ -88,9 +89,11 @@ export default function ContributionCard({
             transition={{ duration: 0.3 }}
           >
             {projectLogo ? (
-              <img 
+              <Image 
                 src={projectLogo} 
                 alt={`${projectName} logo`}
+                width={48}
+                height={48}
                 className="w-full h-full object-cover"
                 loading="lazy"
               />

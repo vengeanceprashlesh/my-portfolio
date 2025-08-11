@@ -44,7 +44,7 @@ export default function Contact() {
   ];
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section id="contact" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <AnimateOnScroll>
           <div className="text-center mb-12 sm:mb-16">
@@ -56,7 +56,7 @@ export default function Contact() {
               <span className="text-primary-text">The Universe</span>
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-secondary-text max-w-3xl mx-auto px-2">
-              Ready to collaborate on the next cosmic project? Let's create something extraordinary together.
+              Ready to collaborate on the next cosmic project? Let&apos;s create something extraordinary together.
             </p>
           </div>
         </AnimateOnScroll>
@@ -71,11 +71,11 @@ export default function Contact() {
                 transition={{ duration: 0.3 }}
               >
                 <h3 className="text-2xl font-bold mb-6 text-primary-text">
-                  Let's Start a Conversation
+                  Let&apos;s Start a Conversation
                 </h3>
                 <p className="text-secondary-text mb-8 leading-relaxed">
                   Whether you have a project in mind, want to collaborate, or just want to say hello, 
-                  I'm always excited to connect with fellow cosmic explorers.
+                  I&apos;m always excited to connect with fellow cosmic explorers.
                 </p>
 
                 <div className="space-y-6">
@@ -180,43 +180,6 @@ export default function Contact() {
           </AnimateOnScroll>
         </div>
 
-        {/* Call to Action */}
-        <AnimateOnScroll delay={0.8}>
-          <div className="text-center mt-16">
-            <motion.button
-              className="px-12 py-6 bg-gradient-to-r from-accent-purple via-accent-blue to-accent-purple text-white font-bold text-lg rounded-2xl shadow-lg relative overflow-hidden group"
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 0 50px rgba(138, 43, 226, 0.5)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-            >
-              {/* Animated background */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-accent-blue via-accent-purple to-accent-blue opacity-0 group-hover:opacity-100"
-                animate={{
-                  x: ["-100%", "100%"]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-              
-              <span className="relative z-10 flex items-center justify-center gap-3">
-                Start Your Cosmic Journey
-                <motion.span
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                >
-                  🚀
-                </motion.span>
-              </span>
-            </motion.button>
-          </div>
-        </AnimateOnScroll>
       </div>
 
       {/* Background Elements */}

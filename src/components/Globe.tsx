@@ -1,9 +1,8 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import { OrbitControls, Sphere, Ring } from '@react-three/drei';
-import { TextureLoader } from 'three';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Earth component with rotation
@@ -25,7 +24,7 @@ function Earth() {
   }, []);
 
   // Auto-rotation with mouse influence
-  useFrame((state) => {
+  useFrame(() => {
     if (earthRef.current) {
       earthRef.current.rotation.y += 0.005;
       earthRef.current.rotation.x = mousePosition.y * 0.1;
@@ -144,9 +143,8 @@ function FloatingParticles() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          array={positions}
+          args={[positions, 3]}
           count={particleCount}
-          itemSize={3}
         />
       </bufferGeometry>
       <pointsMaterial

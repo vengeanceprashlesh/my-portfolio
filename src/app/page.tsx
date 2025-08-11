@@ -1,6 +1,5 @@
 import Hero from '../sections/Hero';
 import Contact from '../sections/Contact';
-import OpenSource from '../sections/OpenSource';
 import SkillCard from '../components/SkillCard';
 import ProjectCard from '../components/ProjectCard';
 import Timeline from '../components/Timeline';
@@ -48,53 +47,43 @@ export default function Home() {
 
   const projects = [
     {
-      title: "AI Transcriber",
-      description: "Built an AI-powered audio-to-text transcription tool using Python. Features real-time transcription with high accuracy for various audio formats.",
-      technologies: ["Python", "AI/ML", "Speech Recognition", "APIs"],
-      demoUrl: "#",
-      codeUrl: "#"
-    },
-    {
-      title: "TG-DD Bot",
-      description: "Developed a productivity app to manage daily tasks with notification features. A comprehensive task management system with user-friendly interface.",
-      technologies: ["JavaScript", "Node.js", "Database", "APIs"],
-      demoUrl: "#",
-      codeUrl: "#"
-    },
-    {
-      title: "The University",
-      description: "Created a university management system for students and faculty. Features course management, grades tracking, and administrative tools.",
+      title: "Neo-University",
+      description: "A comprehensive university management system built for students and faculty. Features course management, grade tracking, student enrollment, and administrative tools with a modern interface.",
       technologies: ["MERN Stack", "MongoDB", "Express.js", "React", "Node.js"],
+      imageUrl: "https://images.unsplash.com/photo-1562774053-701939374585?w=500&h=300&fit=crop&crop=center",
       demoUrl: "#",
-      codeUrl: "#"
+      codeUrl: "https://github.com/vengeanceprashlesh/Neo-University"
     },
     {
-      title: "Traffic Light Controller",
-      description: "Built a Python-based traffic light management system for optimizing traffic flow. Includes simulation and real-time control features.",
-      technologies: ["Python", "Simulation", "Control Systems", "Optimization"],
+      title: "PsyFlow",
+      description: "An innovative psychology and mental health application designed to help users track their emotional well-being. Features mood tracking, mental health resources, and personalized insights.",
+      technologies: ["Psychology APIs", "Data Analytics", "User Experience", "Mental Health"],
+      imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=500&h=300&fit=crop&crop=center",
       demoUrl: "#",
-      codeUrl: "#"
+      codeUrl: "https://github.com/vengeanceprashlesh/PsyFlow"
     },
     {
-      title: "Rashtra Swatantrata Sangram",
-      description: "Built a parking management system to streamline parking operations. Features booking system, payment integration, and space optimization.",
-      technologies: ["Full Stack", "Database Design", "Payment APIs", "Web Development"],
+      title: "Parkify",
+      description: "A smart parking management system that streamlines parking operations. Features real-time space availability, booking system, payment integration, and space optimization algorithms.",
+      technologies: ["Full Stack", "Database Design", "Payment APIs", "Real-time Systems"],
+      imageUrl: "https://images.unsplash.com/photo-1590674899484-cc90b1ad8a1e?w=500&h=300&fit=crop&crop=center",
       demoUrl: "#",
-      codeUrl: "#"
+      codeUrl: "https://github.com/vengeanceprashlesh/Parkify"
     },
     {
-      title: "PyPost",
-      description: "Developed a psychology application using MERN stack. Features mental health assessments, progress tracking, and interactive tools.",
-      technologies: ["MERN Stack", "Psychology APIs", "Data Analytics", "User Experience"],
+      title: "ClarityFlow",
+      description: "Mental Health Companion - An interactive emotional introspection and mood regulation app designed for Gen-Z and young adults. Helps with anxiety, stress, and emotional overwhelm through self-discovery.",
+      technologies: ["Mental Health Tech", "Emotional AI", "User Psychology", "Wellness Apps"],
+      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=300&fit=crop&crop=center",
       demoUrl: "#",
-      codeUrl: "#"
+      codeUrl: "https://github.com/vengeanceprashlesh/ClarityFlow"
     }
   ];
 
   const timelineItems = [
     {
-      year: "2028",
-      title: "B.Sc Computer Science (Expected)",
+      year: "2025",
+      title: "B.tech in Computer Science(Core)",
       company: "Woxsen University",
       description: "Pursuing Bachelor of Science in Computer Science with a focus on full-stack web development, algorithms, and software engineering principles.",
       achievements: [
@@ -142,80 +131,6 @@ export default function Home() {
     }
   ];
 
-  const contributions = [
-    {
-      projectName: "React Three Fiber",
-      projectLogo: "https://docs.pmnd.rs/apple-touch-icon.png",
-      prTitle: "Add support for custom camera controls in Canvas",
-      description: "Enhanced the Canvas component to support custom camera control implementations, improving developer flexibility for 3D scene management.",
-      language: "TypeScript",
-      status: "merged" as const,
-      additions: 127,
-      deletions: 23,
-      githubUrl: "https://github.com/pmndrs/react-three-fiber/pull/example",
-      mergedAt: "2024-01-15T10:30:00Z",
-      projectUrl: "https://docs.pmnd.rs/react-three-fiber"
-    },
-    {
-      projectName: "Framer Motion",
-      prTitle: "Fix animation flickering on Safari mobile devices",
-      description: "Resolved a critical bug causing animation flickering on Safari mobile browsers by optimizing the transform calculations and GPU acceleration.",
-      language: "JavaScript",
-      status: "merged" as const,
-      additions: 89,
-      deletions: 34,
-      githubUrl: "https://github.com/framer/motion/pull/example",
-      mergedAt: "2023-11-22T14:45:00Z",
-      projectUrl: "https://www.framer.com/motion/"
-    },
-    {
-      projectName: "Next.js",
-      prTitle: "Improve TypeScript support for App Router metadata API",
-      description: "Enhanced TypeScript definitions for the metadata API in App Router, providing better type safety and developer experience.",
-      language: "TypeScript",
-      status: "merged" as const,
-      additions: 156,
-      deletions: 12,
-      githubUrl: "https://github.com/vercel/next.js/pull/example",
-      mergedAt: "2023-09-08T16:20:00Z",
-      projectUrl: "https://nextjs.org"
-    },
-    {
-      projectName: "Tailwind CSS",
-      prTitle: "Add new gradient animation utilities",
-      description: "Contributed new utility classes for gradient animations, making it easier to create dynamic background effects without custom CSS.",
-      language: "JavaScript",
-      status: "open" as const,
-      additions: 201,
-      deletions: 8,
-      githubUrl: "https://github.com/tailwindlabs/tailwindcss/pull/example",
-      projectUrl: "https://tailwindcss.com"
-    },
-    {
-      projectName: "Vite",
-      prTitle: "Optimize build performance for large TypeScript projects",
-      description: "Implemented caching optimizations that reduce build times by up to 40% for large TypeScript projects with complex dependency graphs.",
-      language: "TypeScript",
-      status: "merged" as const,
-      additions: 178,
-      deletions: 45,
-      githubUrl: "https://github.com/vitejs/vite/pull/example",
-      mergedAt: "2023-07-12T09:15:00Z",
-      projectUrl: "https://vitejs.dev"
-    },
-    {
-      projectName: "Zustand",
-      prTitle: "Add DevTools integration for better debugging",
-      description: "Enhanced the state management library with improved DevTools integration, making it easier to debug state changes and time-travel.",
-      language: "TypeScript",
-      status: "merged" as const,
-      additions: 92,
-      deletions: 18,
-      githubUrl: "https://github.com/pmndrs/zustand/pull/example",
-      mergedAt: "2023-05-30T11:40:00Z",
-      projectUrl: "https://github.com/pmndrs/zustand"
-    }
-  ];
 
   return (
     <>
@@ -229,7 +144,7 @@ export default function Home() {
             <AnimateOnScroll delay={0.2}>
               <h2 id="skills-heading" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4">
                 <span className="bg-gradient-to-r from-accent-purple to-accent-blue bg-clip-text text-transparent">
-                  Cosmic Skills
+                  Skills
                 </span>
               </h2>
               <p className="text-base sm:text-lg lg:text-xl text-secondary-text text-center mb-12 sm:mb-16 max-w-3xl mx-auto px-2">
@@ -250,16 +165,16 @@ export default function Home() {
 
       {/* Projects Section */}
       <AnimateOnScroll>
-        <section className="py-20 px-4">
+        <section id="projects" className="py-20 px-4">
           <div className="max-w-6xl mx-auto">
             <AnimateOnScroll delay={0.2}>
               <h2 className="text-4xl md:text-6xl font-bold text-center mb-4">
                 <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">
-                  Stellar Projects
+                 Projects
                 </span>
               </h2>
               <p className="text-xl text-secondary-text text-center mb-16 max-w-3xl mx-auto">
-                Exploring the frontier of what's possible with code
+                Exploring the frontier of what&apos;s possible with code
               </p>
             </AnimateOnScroll>
             
@@ -274,39 +189,11 @@ export default function Home() {
         </section>
       </AnimateOnScroll>
 
-      {/* Open Source Section */}
-      <OpenSource contributions={contributions} />
-
       {/* Timeline Section */}
       <Timeline items={timelineItems} />
 
       {/* Contact Section */}
       <Contact />
-
-      {/* Phase 5 Complete Section */}
-      <AnimateOnScroll>
-        <section className="py-20 px-4" aria-labelledby="completion-heading">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="bg-card-bg border border-border rounded-2xl p-12 backdrop-blur-sm">
-              <h2 id="completion-heading" className="text-3xl font-bold mb-6 text-accent-purple">Phase 5 Complete! 🚀</h2>
-              <div className="text-left space-y-4 text-secondary-text mb-8">
-                <p>✅ Full responsive design for all screen sizes (mobile to desktop)</p>
-                <p>✅ Semantic HTML structure with proper heading hierarchy</p>
-                <p>✅ ARIA labels and accessibility improvements throughout</p>
-                <p>✅ Optimized images with lazy loading and proper alt tags</p>
-                <p>✅ Reduced motion and improved performance</p>
-                <p>✅ Production-ready with proper metadata and SEO</p>
-              </div>
-              <div className="p-6 bg-accent-purple/10 border border-accent-purple/20 rounded-xl">
-                <p className="text-primary-text font-medium">
-                  🎆 Your cosmic portfolio is now polished, accessible, and ready for deployment!
-                  Time to launch it to the digital universe.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </AnimateOnScroll>
     </>
   );
 }

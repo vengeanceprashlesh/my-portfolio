@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface ProjectCardProps {
   title: string;
@@ -31,17 +32,40 @@ export default function ProjectCard({
       whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       style={{ perspective: "1000px" }}
+      onClick={() => {
+        if (codeUrl && codeUrl !== '#') {
+          window.open(codeUrl, '_blank');
+        }
+      }}
     >
+      {/* GitHub Link Indicator */}
+      {codeUrl && codeUrl !== '#' && (
+        <div className="absolute top-3 right-3 z-20 bg-accent-purple/90 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span className="text-white text-sm font-medium">🐙 GitHub</span>
+        </div>
+      )}
+      
+      {/* Click to view indicator */}
+      <div className="absolute top-3 left-3 z-20 bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <span className="text-white text-xs font-medium">Click to view →</span>
+      </div>
+
       {/* Image/Preview Section */}
       <div className="relative h-48 bg-gradient-to-br from-accent-purple/20 to-accent-blue/20 overflow-hidden">
         {imageUrl ? (
-          <motion.img
-            src={imageUrl}
-            alt={title}
-            className="w-full h-full object-cover"
+          <motion.div
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.6 }}
-          />
+            className="w-full h-full"
+          >
+            <Image
+              src={imageUrl}
+              alt={title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </motion.div>
         ) : (
           <motion.div 
             className="w-full h-full flex items-center justify-center text-6xl"

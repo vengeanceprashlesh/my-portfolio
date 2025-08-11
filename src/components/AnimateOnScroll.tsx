@@ -38,8 +38,7 @@ export default function AnimateOnScroll({
       scale: 1,
       transition: {
         duration,
-        delay,
-        ease: [0.25, 0.25, 0, 1]
+        delay
       }
     }
   };
