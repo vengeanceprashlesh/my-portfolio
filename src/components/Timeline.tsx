@@ -25,14 +25,14 @@ function TimelineNode({ item, index }: { item: TimelineItem; index: number }) {
   return (
     <motion.div
       ref={ref}
-      className={`flex items-center mb-16 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-      initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
+      className={`flex items-center mb-8 sm:mb-12 lg:mb-16 flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.8, delay: 0.2 }}
     >
       {/* Content */}
       <motion.div
-        className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}
+        className={`w-full md:w-5/12 mb-4 md:mb-0 ${index % 2 === 0 ? 'md:text-right md:pr-8' : 'md:text-left md:pl-8'} text-center md:text-left`}
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.3 }}
       >
@@ -105,7 +105,7 @@ function TimelineNode({ item, index }: { item: TimelineItem; index: number }) {
 
       {/* Timeline Node */}
       <motion.div
-        className="w-2/12 flex justify-center relative"
+        className="w-full md:w-2/12 flex justify-center relative mb-4 md:mb-0"
         initial={{ scale: 0 }}
         animate={isInView ? { scale: 1 } : { scale: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
@@ -117,7 +117,7 @@ function TimelineNode({ item, index }: { item: TimelineItem; index: number }) {
         >
           {/* Outer Ring */}
           <motion.div
-            className="w-16 h-16 rounded-full border-2 flex items-center justify-center backdrop-blur-sm"
+            className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 flex items-center justify-center backdrop-blur-sm"
             style={{ borderColor: item.color, backgroundColor: `${item.color}10` }}
             whileHover={{ 
               boxShadow: `0 0 30px ${item.color}60`,
@@ -164,8 +164,8 @@ function TimelineNode({ item, index }: { item: TimelineItem; index: number }) {
         </motion.div>
       </motion.div>
 
-      {/* Empty Space */}
-      <div className="w-5/12" />
+      {/* Empty Space - only on desktop */}
+      <div className="hidden md:block md:w-5/12" />
     </motion.div>
   );
 }
@@ -180,22 +180,22 @@ export default function Timeline({ items }: TimelineProps) {
   return (
     <div ref={containerRef} className="relative py-20">
       <AnimateOnScroll>
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold mb-4">
+        <div className="text-center mb-12 sm:mb-16 px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4">
             <span className="bg-gradient-to-r from-accent-purple via-accent-blue to-accent-purple bg-clip-text text-transparent">
               Journey Timeline
             </span>
           </h2>
-          <p className="text-xl text-secondary-text max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-secondary-text max-w-3xl mx-auto px-2">
             The cosmic evolution of skills and experiences across the digital universe
           </p>
         </div>
       </AnimateOnScroll>
 
       <div className="relative max-w-6xl mx-auto px-4">
-        {/* Central Timeline Line */}
+        {/* Central Timeline Line - Hidden on mobile */}
         <motion.div
-          className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-accent-purple via-accent-blue to-accent-purple"
+          className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-accent-purple via-accent-blue to-accent-purple"
           style={{
             scaleY: scrollYProgress,
             transformOrigin: "top",

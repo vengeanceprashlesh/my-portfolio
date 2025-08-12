@@ -232,17 +232,17 @@ export default function Home() {
             <section id="projects" className="py-20 px-4">
               <div className="max-w-6xl mx-auto">
                 <AnimateOnScroll delay={0.2}>
-                  <h2 className="text-4xl md:text-6xl font-bold text-center mb-4">
+                  <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-4 px-2">
                     <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">
                      Projects
                     </span>
                   </h2>
-                  <p className="text-xl text-secondary-text text-center mb-16 max-w-3xl mx-auto">
+                  <p className="text-lg sm:text-xl text-secondary-text text-center mb-12 sm:mb-16 max-w-3xl mx-auto px-4">
                     Exploring the frontier of what&apos;s possible with code
                   </p>
                 </AnimateOnScroll>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 lg:gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                   {projects.map((project, index) => (
                     <AnimateOnScroll key={project.title} delay={0.2 * (index + 1)}>
                       <ProjectCard {...project} />
@@ -255,14 +255,14 @@ export default function Home() {
 
           {/* Open Source Section */}
           <AnimateOnScroll>
-            <section className="py-20 px-4">
+            <section className="py-16 sm:py-20 px-4">
               <div className="max-w-6xl mx-auto text-center">
-                <h2 className="text-4xl md:text-6xl font-bold text-center mb-4">
+                <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-4 px-2">
                   <span className="bg-gradient-to-r from-green-400 to-accent-blue bg-clip-text text-transparent">
                     Open Source Tapestry
                   </span>
                 </h2>
-                <p className="text-xl text-secondary-text text-center mb-8 max-w-3xl mx-auto">
+                <p className="text-lg sm:text-xl text-secondary-text text-center mb-8 max-w-3xl mx-auto px-4">
                   Contributing to the global developer community with code that matters
                 </p>
               </div>

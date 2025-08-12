@@ -119,9 +119,9 @@ export default function ProjectCard({
       </div>
 
       {/* Content Section */}
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         <motion.h3
-          className="text-xl font-bold mb-3 text-primary-text"
+          className="text-lg sm:text-xl font-bold mb-3 text-primary-text"
           whileHover={{ 
             color: "#8A2BE2",
             x: 5
@@ -132,7 +132,7 @@ export default function ProjectCard({
         </motion.h3>
 
         <motion.p
-          className="text-secondary-text text-sm mb-4 leading-relaxed"
+          className="text-secondary-text text-xs sm:text-sm mb-4 leading-relaxed"
           initial={{ opacity: 0.8 }}
           whileHover={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
