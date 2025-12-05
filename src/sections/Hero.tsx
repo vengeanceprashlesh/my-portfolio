@@ -3,12 +3,15 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import AnimateOnScroll from '../components/AnimateOnScroll';
+import SplitText from '../components/SplitText';
+import ShinyText from '../components/ShinyText';
+import BlurText from '../components/BlurText';
 
 export default function Hero() {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-6xl mx-auto text-center">
-        
+
         {/* Professional Profile Picture */}
         <AnimateOnScroll delay={0.2}>
           <div className="relative mx-auto mb-8 w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40">
@@ -26,49 +29,60 @@ export default function Hero() {
             </div>
           </div>
         </AnimateOnScroll>
-        
+
         {/* Professional Name Typography */}
         <AnimateOnScroll delay={0.4}>
           <div className="mb-6">
-            <motion.h1 
+            <motion.h1
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
               <span className="bg-gradient-to-r from-accent-purple via-accent-blue to-accent-purple bg-clip-text text-transparent">
-                Prashlesh Pratap Singh
+                <SplitText
+                  text="Prashlesh Pratap Singh"
+                  delay={0.5}
+                  duration={0.08}
+                  variant="fade-up"
+                />
               </span>
             </motion.h1>
-            
+
             {/* Professional Title */}
-            <motion.div 
+            <motion.div
               className="text-lg sm:text-xl md:text-2xl font-medium text-secondary-text mb-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <span className="text-accent-purple font-semibold">Full Stack Developer</span>
+              <span className="text-accent-purple font-semibold">
+                <ShinyText text="Full Stack Developer" speed={4} />
+              </span>
               <span className="mx-3 text-primary-text/40">•</span>
-              <span className="text-accent-blue font-semibold">MERN Stack Specialist</span>
+              <span className="text-accent-blue font-semibold">
+                <ShinyText text="MERN Stack Specialist" speed={4} shimmerColor="rgba(96, 165, 250, 0.6)" />
+              </span>
             </motion.div>
           </div>
         </AnimateOnScroll>
 
         {/* Professional Description */}
         <AnimateOnScroll delay={0.6}>
-          <motion.div 
+          <motion.div
             className="max-w-3xl mx-auto mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <p className="text-base sm:text-lg text-secondary-text leading-relaxed mb-6">
-              Computer Science student passionate about creating innovative web solutions. 
-              Specialized in modern JavaScript technologies and dedicated to delivering 
-              high-quality, scalable applications.
+              <BlurText
+                text="Computer Science student passionate about creating innovative web solutions. Specialized in modern JavaScript technologies and dedicated to delivering high-quality, scalable applications."
+                delay={1.5}
+                duration={0.8}
+              />
             </p>
-            
+
             {/* Key Skills Tags */}
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               {['React', 'Node.js', 'Python', 'MongoDB', 'JavaScript', 'Express.js'].map((skill, index) => (
@@ -89,7 +103,7 @@ export default function Hero() {
 
         {/* Professional CTA Buttons */}
         <AnimateOnScroll delay={0.8}>
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -105,7 +119,7 @@ export default function Hero() {
                 e.preventDefault();
                 const projectsSection = document.getElementById('projects');
                 if (projectsSection) {
-                  projectsSection.scrollIntoView({ 
+                  projectsSection.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                   });
@@ -120,7 +134,7 @@ export default function Hero() {
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-accent-blue to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.a>
-            
+
             <motion.a
               href="#contact"
               className="px-8 py-3 border-2 border-accent-purple/30 text-accent-purple font-medium rounded-lg hover:bg-accent-purple/10 hover:border-accent-purple transition-all duration-300 backdrop-blur-sm"
@@ -131,7 +145,7 @@ export default function Hero() {
                 e.preventDefault();
                 const contactSection = document.getElementById('contact');
                 if (contactSection) {
-                  contactSection.scrollIntoView({ 
+                  contactSection.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                   });
@@ -150,7 +164,7 @@ export default function Hero() {
 
 
       </div>
-      
+
       {/* Scroll Indicator - Outside main container */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
         <AnimateOnScroll delay={1.0}>
