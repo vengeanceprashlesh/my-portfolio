@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Background from "../components/Background";
 
 export const metadata: Metadata = {
   title: "Prashlesh Pratap Singh - Full Stack Developer",
@@ -18,12 +17,15 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
       </head>
       <body
-        className="font-sans antialiased bg-background text-primary-text"
+        className="font-sans antialiased"
+        style={{ fontFamily: "'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif" }}
       >
-        <Background />
-        <main className="relative z-10" role="main" aria-label="Portfolio content">
+        <main role="main" aria-label="Portfolio content">
           {children}
         </main>
       </body>

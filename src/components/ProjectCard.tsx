@@ -68,11 +68,13 @@ export default function ProjectCard({
           </motion.div>
         ) : (
           <motion.div 
-            className="w-full h-full flex items-center justify-center text-6xl"
-            whileHover={{ rotate: 360 }}
-            transition={{ duration: 1 }}
+            className="w-full h-full flex items-center justify-center"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.5 }}
           >
-            💫
+            <div className="w-20 h-20 bg-gradient-to-br from-accent-purple to-accent-blue rounded-xl flex items-center justify-center">
+              <div className="text-2xl font-bold text-white">📁</div>
+            </div>
           </motion.div>
         )}
         

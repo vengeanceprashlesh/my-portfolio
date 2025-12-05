@@ -1,30 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Hero from '../sections/Hero';
 import Contact from '../sections/Contact';
 import SkillCard from '../components/SkillCard';
 import ProjectCard from '../components/ProjectCard';
 import Timeline from '../components/Timeline';
 import AnimateOnScroll from '../components/AnimateOnScroll';
-import Intro from '../components/Intro';
 
 export default function Home() {
-  // State to control the visibility of the entire intro screen
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Total duration for the intro animation
-    // (0.8 seconds per word) * (5 words) = 4 seconds
-    const totalDuration = 4000;
-
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, totalDuration);
-
-    return () => clearTimeout(timer);
-  }, []);
   const skills = [
     {
       title: "MERN Stack Development",
@@ -157,23 +140,8 @@ export default function Home() {
 
   return (
     <main>
-      <AnimatePresence>
-        {isLoading && (
-          // This motion.div will handle the final fade-out of the whole screen
-          <motion.div
-            key="intro-screen"
-            exit={{ opacity: 0, transition: { duration: 0.5 } }}
-          >
-            <Intro />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Your actual page content goes here */}
-      {!isLoading && (
-        <>
-          {/* Hero Section */}
-          <Hero />
+      {/* Hero Section */}
+      <Hero />
           
           {/* About Me Section */}
           <AnimateOnScroll>
@@ -181,7 +149,7 @@ export default function Home() {
               <div className="max-w-4xl mx-auto text-center">
                 <AnimateOnScroll delay={0.2}>
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-                    <span className="bg-gradient-to-r from-accent-purple to-accent-blue bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-accent-gold to-accent-teal bg-clip-text text-transparent">
                       My Philosophy
                     </span>
                   </h2>
@@ -207,7 +175,7 @@ export default function Home() {
               <div className="max-w-6xl mx-auto">
                 <AnimateOnScroll delay={0.2}>
                   <h2 id="skills-heading" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4">
-                    <span className="bg-gradient-to-r from-accent-purple to-accent-blue bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-accent-gold to-accent-teal bg-clip-text text-transparent">
                       Skills
                     </span>
                   </h2>
@@ -233,7 +201,7 @@ export default function Home() {
               <div className="max-w-6xl mx-auto">
                 <AnimateOnScroll delay={0.2}>
                   <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-4 px-2">
-                    <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-accent-teal to-accent-gold bg-clip-text text-transparent">
                      Projects
                     </span>
                   </h2>
@@ -253,29 +221,27 @@ export default function Home() {
             </section>
           </AnimateOnScroll>
 
-          {/* Open Source Section */}
-          <AnimateOnScroll>
-            <section className="py-16 sm:py-20 px-4">
-              <div className="max-w-6xl mx-auto text-center">
-                <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-4 px-2">
-                  <span className="bg-gradient-to-r from-green-400 to-accent-blue bg-clip-text text-transparent">
-                    Open Source Tapestry
-                  </span>
-                </h2>
-                <p className="text-lg sm:text-xl text-secondary-text text-center mb-8 max-w-3xl mx-auto px-4">
-                  Contributing to the global developer community with code that matters
-                </p>
-              </div>
-            </section>
-          </AnimateOnScroll>
+      {/* Open Source Section */}
+      <AnimateOnScroll>
+        <section className="py-16 sm:py-20 px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-4 px-2">
+              <span className="bg-gradient-to-r from-green-400 to-accent-blue bg-clip-text text-transparent">
+                Open Source Tapestry
+              </span>
+            </h2>
+            <p className="text-lg sm:text-xl text-secondary-text text-center mb-8 max-w-3xl mx-auto px-4">
+              Contributing to the global developer community with code that matters
+            </p>
+          </div>
+        </section>
+      </AnimateOnScroll>
 
-          {/* Timeline Section */}
-          <Timeline items={timelineItems} />
+      {/* Timeline Section */}
+      <Timeline items={timelineItems} />
 
-          {/* Contact Section */}
-          <Contact />
-        </>
-      )}
+      {/* Contact Section */}
+      <Contact />
     </main>
   );
 }
