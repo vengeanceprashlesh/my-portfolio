@@ -8,6 +8,8 @@ import Timeline from '../components/Timeline';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import GradientText from '../components/GradientText';
 import BlurText from '../components/BlurText';
+import LiquidEther from '../components/LiquidEther';
+
 
 export default function Home() {
   const skills = [
@@ -141,133 +143,168 @@ export default function Home() {
 
 
   return (
-    <main>
-      {/* Hero Section */}
-      <Hero />
+    <div style={{ position: 'relative', minHeight: '100vh' }}>
+      {/* Liquid Ether Background */}
+      <div style={{ position: 'fixed', width: '100%', height: '100vh', top: 0, left: 0, zIndex: 0 }}>
+        <LiquidEther
+          colors={['#5227FF', '#FF9FFC', '#B19EEF']}
+          mouseForce={20}
+          cursorSize={100}
+          isViscous={false}
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          resolution={0.5}
+          isBounce={false}
+          autoDemo={true}
+          autoSpeed={0.5}
+          autoIntensity={2.2}
+          takeoverDuration={0.25}
+          autoResumeDelay={3000}
+          autoRampDuration={0.6}
+        />
+      </div>
 
-      {/* About Me Section */}
-      <AnimateOnScroll>
-        <section className="py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <AnimateOnScroll delay={0.2}>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-accent-gold to-accent-teal bg-clip-text text-transparent">
-                  My Philosophy
-                </span>
-              </h2>
-              <div className="bg-card-bg border border-border rounded-2xl p-8 backdrop-blur-sm">
-                <p className="text-lg text-primary-text leading-relaxed mb-4">
-                  I believe that great technology should feel like magic to users while being built on solid engineering principles.
-                  Every line of code I write is an opportunity to solve real problems and create meaningful experiences.
+      <main style={{ position: 'relative', zIndex: 1 }}>
+        {/* Hero Section */}
+        <Hero />
+
+        {/* About Me Section */}
+        <AnimateOnScroll>
+          <section className="py-16 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto text-center">
+              <AnimateOnScroll delay={0.2}>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                  <span className="bg-gradient-to-r from-accent-gold to-accent-teal bg-clip-text text-transparent">
+                    My Philosophy
+                  </span>
+                </h2>
+                <div className="bg-card-bg border border-border rounded-2xl p-8 backdrop-blur-sm">
+                  <p className="text-lg text-primary-text leading-relaxed mb-4">
+                    I believe that great technology should feel like magic to users while being built on solid engineering principles.
+                    Every line of code I write is an opportunity to solve real problems and create meaningful experiences.
+                  </p>
+                  <p className="text-base text-secondary-text leading-relaxed">
+                    What drives me most is the moment when an idea transforms from concept to reality—when users interact with
+                    something I&apos;ve built and it genuinely makes their lives better. That&apos;s the intersection of creativity and
+                    logic where I thrive.
+                  </p>
+                </div>
+              </AnimateOnScroll>
+            </div>
+          </section>
+        </AnimateOnScroll>
+
+        {/* Skills Section */}
+        <AnimateOnScroll>
+          <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8" aria-labelledby="skills-heading">
+            <div className="max-w-6xl mx-auto">
+              <AnimateOnScroll delay={0.2}>
+                <h2 id="skills-heading" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4">
+                  <span className="bg-gradient-to-r from-accent-gold to-accent-teal bg-clip-text text-transparent">
+                    <GradientText
+                      text="Skills"
+                      colors={['#8B5CF6', '#3B82F6', '#06D6A0', '#FFD700']}
+                      animationSpeed={4}
+                    />
+                  </span>
+                </h2>
+                <p className="text-base sm:text-lg lg:text-xl text-secondary-text text-center mb-12 sm:mb-16 max-w-3xl mx-auto px-2">
+                  <BlurText
+                    text="Mastering the technologies that power the digital universe"
+                    delay={0.3}
+                    duration={0.6}
+                  />
                 </p>
-                <p className="text-base text-secondary-text leading-relaxed">
-                  What drives me most is the moment when an idea transforms from concept to reality—when users interact with
-                  something I&apos;ve built and it genuinely makes their lives better. That&apos;s the intersection of creativity and
-                  logic where I thrive.
-                </p>
+              </AnimateOnScroll>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+                {skills.map((skill, index) => (
+                  <AnimateOnScroll key={skill.title} delay={0.2 * (index + 1)}>
+                    <SkillCard {...skill} />
+                  </AnimateOnScroll>
+                ))}
               </div>
-            </AnimateOnScroll>
-          </div>
-        </section>
-      </AnimateOnScroll>
-
-      {/* Skills Section */}
-      <AnimateOnScroll>
-        <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8" aria-labelledby="skills-heading">
-          <div className="max-w-6xl mx-auto">
-            <AnimateOnScroll delay={0.2}>
-              <h2 id="skills-heading" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4">
-                <span className="bg-gradient-to-r from-accent-gold to-accent-teal bg-clip-text text-transparent">
-                  <GradientText
-                    text="Skills"
-                    colors={['#C89B6D', '#E6D5C3', '#D4A373', '#C89B6D']}
-                    animationSpeed={4}
-                  />
-                </span>
-              </h2>
-              <p className="text-base sm:text-lg lg:text-xl text-secondary-text text-center mb-12 sm:mb-16 max-w-3xl mx-auto px-2">
-                <BlurText
-                  text="Mastering the technologies that power the digital universe"
-                  delay={0.3}
-                  duration={0.6}
-                />
-              </p>
-            </AnimateOnScroll>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-              {skills.map((skill, index) => (
-                <AnimateOnScroll key={skill.title} delay={0.2 * (index + 1)}>
-                  <SkillCard {...skill} />
-                </AnimateOnScroll>
-              ))}
             </div>
-          </div>
-        </section>
-      </AnimateOnScroll>
+          </section>
+        </AnimateOnScroll>
 
-      {/* Projects Section */}
-      <AnimateOnScroll>
-        <section id="projects" className="py-20 px-4">
-          <div className="max-w-6xl mx-auto">
-            <AnimateOnScroll delay={0.2}>
+        {/* Projects Section */}
+        <AnimateOnScroll>
+          <section id="projects" className="py-20 px-4">
+            <div className="max-w-6xl mx-auto">
+              <AnimateOnScroll delay={0.2}>
+                <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-4 px-2">
+                  <span className="bg-gradient-to-r from-accent-teal to-accent-gold bg-clip-text text-transparent">
+                    <GradientText
+                      text="Projects"
+                      colors={['#06D6A0', '#FFD700', '#8B5CF6', '#3B82F6']}
+                      animationSpeed={4}
+                    />
+                  </span>
+                </h2>
+                <p className="text-lg sm:text-xl text-secondary-text text-center mb-8 max-w-3xl mx-auto px-4">
+                  <BlurText
+                    text="Exploring the frontier of what's possible with code"
+                    delay={0.3}
+                    duration={0.6}
+                  />
+                </p>
+              </AnimateOnScroll>
+
+              {/* 3D Infinite Menu - Temporarily Disabled */}
+              {/* TODO: Create InfiniteMenu component */}
+              {/* <div style={{ height: '600px', position: 'relative' }}>
+                <InfiniteMenu items={projects.map(project => ({
+                  image: project.imageUrl,
+                  link: project.demoUrl,
+                  title: project.title,
+                  description: project.description
+                }))} />
+              </div> */}
+
+              {/* Temporary Projects Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                {projects.map((project, index) => (
+                  <AnimateOnScroll key={project.title} delay={0.2 * (index + 1)}>
+                    <ProjectCard {...project} />
+                  </AnimateOnScroll>
+                ))}
+              </div>
+            </div>
+          </section>
+        </AnimateOnScroll>
+
+        {/* Open Source Section */}
+        <AnimateOnScroll>
+          <section className="py-16 sm:py-20 px-4">
+            <div className="max-w-6xl mx-auto text-center">
               <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-4 px-2">
-                <span className="bg-gradient-to-r from-accent-teal to-accent-gold bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-green-400 to-accent-blue bg-clip-text text-transparent">
                   <GradientText
-                    text="Projects"
-                    colors={['#E6D5C3', '#C89B6D', '#D4A373', '#E6D5C3']}
-                    animationSpeed={4}
+                    text="Open Source Tapestry"
+                    colors={['#3B82F6', '#8B5CF6', '#FFD700', '#06D6A0']}
+                    animationSpeed={5}
                   />
                 </span>
               </h2>
-              <p className="text-lg sm:text-xl text-secondary-text text-center mb-12 sm:mb-16 max-w-3xl mx-auto px-4">
+              <p className="text-lg sm:text-xl text-secondary-text text-center mb-8 max-w-3xl mx-auto px-4">
                 <BlurText
-                  text="Exploring the frontier of what's possible with code"
+                  text="Contributing to the global developer community with code that matters"
                   delay={0.3}
                   duration={0.6}
                 />
               </p>
-            </AnimateOnScroll>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-              {projects.map((project, index) => (
-                <AnimateOnScroll key={project.title} delay={0.2 * (index + 1)}>
-                  <ProjectCard {...project} />
-                </AnimateOnScroll>
-              ))}
             </div>
-          </div>
-        </section>
-      </AnimateOnScroll>
+          </section>
+        </AnimateOnScroll>
 
-      {/* Open Source Section */}
-      <AnimateOnScroll>
-        <section className="py-16 sm:py-20 px-4">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-4 px-2">
-              <span className="bg-gradient-to-r from-green-400 to-accent-blue bg-clip-text text-transparent">
-                <GradientText
-                  text="Open Source Tapestry"
-                  colors={['#4ade80', '#60A5FA', '#8B5E3C', '#4ade80']}
-                  animationSpeed={5}
-                />
-              </span>
-            </h2>
-            <p className="text-lg sm:text-xl text-secondary-text text-center mb-8 max-w-3xl mx-auto px-4">
-              <BlurText
-                text="Contributing to the global developer community with code that matters"
-                delay={0.3}
-                duration={0.6}
-              />
-            </p>
-          </div>
-        </section>
-      </AnimateOnScroll>
+        {/* Timeline Section */}
+        <Timeline items={timelineItems} />
 
-      {/* Timeline Section */}
-      <Timeline items={timelineItems} />
-
-      {/* Contact Section */}
-      <Contact />
-    </main>
+        {/* Contact Section */}
+        <Contact />
+      </main>
+    </div>
   );
 }

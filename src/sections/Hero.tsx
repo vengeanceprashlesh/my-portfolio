@@ -57,11 +57,11 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <span className="text-accent-purple font-semibold">
-                <ShinyText text="Full Stack Developer" speed={4} />
+                <ShinyText text="Full Stack Developer" speed={4} shimmerColor="rgba(255, 215, 0, 0.8)" />
               </span>
               <span className="mx-3 text-primary-text/40">•</span>
               <span className="text-accent-blue font-semibold">
-                <ShinyText text="MERN Stack Specialist" speed={4} shimmerColor="rgba(96, 165, 250, 0.6)" />
+                <ShinyText text="MERN Stack Specialist" speed={4} shimmerColor="rgba(6, 214, 160, 0.8)" />
               </span>
             </motion.div>
           </div>
